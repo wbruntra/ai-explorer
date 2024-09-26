@@ -10,9 +10,8 @@ This project demonstrates how to use OpenAI's API. Follow the steps below to set
 
 1. **Clone the repository**: Open your terminal and run the following command to clone the repository:
     ```sh
-    git clone <repository-url>
+    git clone https://github.com/wbruntra/ai-explorer
     ```
-    Replace `<repository-url>` with the actual URL of your repository.
 
 2. **Navigate to the project directory**:
     ```sh

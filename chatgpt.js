@@ -45,51 +45,57 @@ const getChatResponse = async ({ content, model = 'gpt-4o-mini', json = false, m
     [`gpt-4o-mini`]: `gpt-4o-mini-2024-07-18`,
   }
 
-  const response = await axios.post(
-    'https://api.openai.com/v1/chat/completions',
-    {
-      model: models[model],
-      messages: [
-        {
-          role: 'system',
-          content: json
-            ? 'You are a helpful assistant designed to output JSON.'
-            : 'You are a helpful assistant.',
-        },
-        { role: 'user', content: content },
-      ],
-      response_format: json ? { type: 'json_object' } : undefined,
-      max_tokens: max_tokens ? max_tokens : undefined,
-    },
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${secrets.open_ai_key}`,
+  try {
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: models[model],
+        messages: [
+          {
+            role: 'system',
+            content: json
+              ? 'You are a helpful assistant designed to output JSON.'
+              : 'You are a helpful assistant.',
+          },
+          { role: 'user', content: content },
+        ],
+        response_format: json ? { type: 'json_object' } : undefined,
+        max_tokens: max_tokens ? max_tokens : undefined,
       },
-    },
-  )
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${secrets.open_ai_key}`,
+        },
+      },
+    )
 
-  const { finish_reason } = response.data.choices[0]
+    const { finish_reason } = response.data.choices[0]
 
-  if (finish_reason !== 'stop') {
-    console.log('Error: ChatGPT API did not generate a command.')
-    return
-  }
+    if (finish_reason !== 'stop') {
+      console.log('Error: ChatGPT API did not generate a command.')
+      return
+    }
 
-  const message = response.data.choices[0].message.content
+    const message = response.data.choices[0].message.content
 
-  const cost = models[model] ? calculateCost(models[model], response.data.usage) : 0
+    const cost = models[model] ? calculateCost(models[model], response.data.usage) : 0
 
-  console.log('Cost:', cost)
+    console.log('Cost:', cost)
 
-  return {
-    message,
-    usage: response.data.usage,
-    model: response.data.model,
-    cost,
+    return {
+      message,
+      usage: response.data.usage,
+      model: response.data.model,
+      cost,
+    }
+  } catch (error) {
+    console.error(
+      'Error making request to ChatGPT API:',
+      error.response ? error.response.data : error.message,
+    )
   }
 }
-
 
 if (require.main === module) {
   const content = `Hi! This is just a test message. Let me know if my setup is working!`

@@ -6,6 +6,8 @@ This project demonstrates how to use OpenAI's API. Follow the steps below to set
 
 1. **Node.js and npm**: Ensure you have Node.js and npm installed. You can download them from [nodejs.org](https://nodejs.org/).
 2. **Git**: Ensure you have Git installed. You can download it from [git-scm.com](https://git-scm.com/).
+3. **Code Editor**: Install a code editor if you don't have one. A good option is:
+  - **Visual Studio Code**: A free, open-source code editor from Microsoft. Download it from [code.visualstudio.com](https://code.visualstudio.com/).
 
 ## Setup
 

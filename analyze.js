@@ -1,3 +1,7 @@
+// This file can be used to analyze a text file using the ChatGPT model.
+// The text file is read and the contents are summarized.
+// Modify the input.txt file to change the text to be analyzed.
+
 const { getChatResponse } = require('./chatgpt')
 const fs = require('fs')
 const path = require('path')

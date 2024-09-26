@@ -1,3 +1,6 @@
+// This file can be used to ask a question using the ChatGPT model.
+// Modify the content variable to change the question.
+
 const { getChatResponse } = require('./chatgpt')
 
 const getChatMessage = async (content) => {
